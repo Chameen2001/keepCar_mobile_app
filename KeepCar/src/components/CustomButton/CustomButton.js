@@ -6,9 +6,10 @@ const CustomButton = ({
   text,
   width,
   bgColor = 'white',
-  fontSize,
-  textColor,
+  fontSize = '15',
+  textColor = 'black',
   onPress,
+  marginTop,
 }) => {
   return (
     <TouchableOpacity
@@ -18,6 +19,7 @@ const CustomButton = ({
         {
           backgroundColor: bgColor,
           width: width,
+          marginTop: marginTop,
         },
       ]}>
       <Text style={[styles.buttonText, {color: textColor, fontSize: fontSize}]}>
@@ -31,7 +33,6 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   loginButton: {
-    marginVertical: 5,
     justifyContent: 'center',
     alignItems: 'center',
     height: '10%',

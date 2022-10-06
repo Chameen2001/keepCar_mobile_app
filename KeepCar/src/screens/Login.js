@@ -64,7 +64,16 @@ export default function Login() {
                 onPress={onLoginPress}
               />
               <CustomButton
+                marginTop={10}
                 text="Forgot password?"
+                textColor="gray"
+                fontSize={11}
+                width="80%"
+                onPress={onForgotPassPress}
+              />
+              <CustomButton
+                text="Don't have an account? Create one"
+                marginTop={0}
                 textColor="gray"
                 fontSize={11}
                 width="80%"
