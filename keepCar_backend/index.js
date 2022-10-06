@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
 
+const userRoute = require("./routes/user.routes");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,10 +30,15 @@ app.listen(port, () => {
   console.log(`Our server is up and running on port:${port}`);
 });
 
-app.get("/", (req, res) => {
-  res.send("Our express server is up and running");
-});
+app.use("/user", userRoute);
 
-app.get("/test", (req, res) => {
-  res.send("Running at /test");
+app.use((err, req, res, next) => {
+  console.log("awada");
+  res.status(500);
+  res.send({
+    error: {
+      status: err.status,
+      message: err.message,
+    },
+  });
 });

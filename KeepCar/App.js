@@ -1,11 +1,11 @@
 import {NativeBaseProvider} from 'native-base';
 import React from 'react';
-import Login from './screens/Login';
+import Login from './src/screens/Login';
 
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Login></Login>
+      <Login />
     </NativeBaseProvider>
   );
 }

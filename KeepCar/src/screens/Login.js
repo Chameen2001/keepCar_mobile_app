@@ -1,72 +1,75 @@
-import {Box, Image, Input, VStack, KeyboardAvoidingView} from 'native-base';
-import React from 'react';
+import {Box, Image, VStack, KeyboardAvoidingView} from 'native-base';
+import React, {useState} from 'react';
 import {Dimensions, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Icon} from 'native-base';
+import CustomButton from '../components/CustomButton/CustomButton';
+import CustomInput from '../components/CustomInput';
 
 export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const onLoginPress = () => {
+    console.warn('pressed');
+  };
+
+  const onForgotPassPress = () => {
+    console.warn('forgot pressed');
+  };
+
   return (
     <Box flex={1} style={styles.wrapper}>
       <Image
-        width={Dimensions.get('screen').width}
-        height={Dimensions.get('screen').height}
         alt="Logo"
-        resizeMode="cover"
-        source={require('../assets/images/logInPageImage/background.png')}></Image>
+        style={styles.backgroundImage}
+        source={require('../../assets/images/logInPageImage/background.png')}
+      />
       <Box style={styles.container}>
         <Image
           style={styles.logo}
           alt="logo"
-          source={require('../assets/logos/logo.png')}></Image>
+          source={require('../../assets/logos/logo.png')}
+        />
         <KeyboardAvoidingView behavior="padding">
           <Box style={styles.loginContainer}>
             <VStack style={styles.vStackContainer}>
               <Text style={styles.titleText}>Login</Text>
               <VStack style={styles.inputsContainer} space={3}>
-                <Input
-                  InputLeftElement={
-                    <Icon
-                      as={<MaterialCommunityIcons name="email" />}
-                      size={6}
-                      color="muted.400"
-                    />
-                  }
-                  variant="filled"
-                  placeholder="Username/Email"
-                  style={styles.textInput}
-                />
                 {/* <MaterialCommunityIcons
                   name="email"
                   style={{color: 'red', fontSize: 30}}
                 /> */}
-                <Input
-                  InputLeftElement={
-                    <Icon
-                      as={
-                        <MaterialCommunityIcons name="form-textbox-password" />
-                      }
-                      size={6}
-                      color="muted.400"
-                    />
-                  }
+                <CustomInput
+                  value={username}
+                  setValue={setUsername}
+                  iconName="email"
                   variant="filled"
-                  placeholder="Password"
-                  style={styles.textInput}
-                />
-                {/* <TextInput
-                  style={styles.textInput}
                   placeholder="Username/Email"
-                  placeholderTextColor={'#5C5C5C'}
+                  secureTextEntry={false}
                 />
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Password"
-                  placeholderTextColor={'#5C5C5C'}
-                /> */}
+
+                <CustomInput
+                  value={password}
+                  setValue={setPassword}
+                  iconName="form-textbox-password"
+                  variant="filled"
+                  placeholder="Username/Email"
+                  secureTextEntry
+                />
               </VStack>
-              <TouchableOpacity style={styles.loginButton}>
-                <Text style={styles.buttonText}>Login</Text>
-              </TouchableOpacity>
+              <CustomButton
+                text="Login"
+                bgColor="#FFC0AD"
+                textColor="black"
+                fontSize={15}
+                width="80%"
+                onPress={onLoginPress}
+              />
+              <CustomButton
+                text="Forgot password?"
+                textColor="gray"
+                fontSize={11}
+                width="80%"
+                onPress={onForgotPassPress}
+              />
             </VStack>
           </Box>
         </KeyboardAvoidingView>
@@ -76,6 +79,12 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
+    resizeMode: 'cover',
+  },
+
   logo: {
     resizeMode: 'contain',
     width: '50%',
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
     width: (Dimensions.get('screen').width / 4) * 3,
     height: Dimensions.get('screen').width,
 
-    borderRadius: 30,
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -129,24 +138,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  loginButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFC0AD',
-    width: '40%',
-    height: '10%',
-    borderRadius: 10,
-  },
   titleText: {
     color: 'black',
     fontSize: 25,
-    fontFamily: 'MergeOne-Regular',
-  },
-
-  buttonText: {
-    color: 'black',
-    fontSize: 15,
     fontFamily: 'MergeOne-Regular',
   },
 });
