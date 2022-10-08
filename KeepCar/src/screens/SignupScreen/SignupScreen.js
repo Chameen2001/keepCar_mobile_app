@@ -1,18 +1,23 @@
 import {Box, Image, VStack, KeyboardAvoidingView} from 'native-base';
 import React, {useState} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import CustomButton from '../../components/CustomButton/CustomButton';
+import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
+import {useNavigation} from '@react-navigation/native';
 
 const SignupScreen = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const onLoginPress = () => {
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const navigation = useNavigation();
+
+  const onRegisterPress = () => {
     console.warn('pressed');
   };
 
-  const onForgotPassPress = () => {
-    console.warn('forgot pressed');
+  const onGoToLogin = () => {
+    navigation.navigate('Login');
   };
 
   return (
@@ -25,18 +30,30 @@ const SignupScreen = () => {
       <Box style={styles.container}>
         <KeyboardAvoidingView behavior="padding">
           <VStack style={styles.signupContainer}>
-            <Text style={styles.titleText}>Login</Text>
+            <Text style={styles.titleText}>Create Account</Text>
             <VStack style={styles.inputsContainer} space={3}>
               {/* <MaterialCommunityIcons
                   name="email"
                   style={{color: 'red', fontSize: 30}}
                 /> */}
+
               <CustomInput
                 value={username}
                 setValue={setUsername}
-                iconName="email"
+                iconName="user"
                 variant="filled"
-                placeholder="Username/Email"
+                placeholder="Full Name"
+                secureTextEntry={false}
+                iconCategory="AntDesign"
+              />
+
+              <CustomInput
+                value={email}
+                setValue={setEmail}
+                iconName="email"
+                iconCategory="MaterialCommunityIcons"
+                variant="filled"
+                placeholder="Email"
                 secureTextEntry={false}
               />
 
@@ -44,34 +61,49 @@ const SignupScreen = () => {
                 value={password}
                 setValue={setPassword}
                 iconName="form-textbox-password"
+                iconCategory="MaterialCommunityIcons"
                 variant="filled"
-                placeholder="Username/Email"
+                placeholder="Password"
+                secureTextEntry
+              />
+              <CustomInput
+                value={repeatPassword}
+                setValue={setRepeatPassword}
+                iconName="form-textbox-password"
+                iconCategory="MaterialCommunityIcons"
+                variant="filled"
+                placeholder="Confirm Password"
                 secureTextEntry
               />
             </VStack>
             <CustomButton
-              text="Login"
+              text="Register"
               bgColor="#FFC0AD"
               textColor="black"
               fontSize={15}
               width="80%"
-              onPress={onLoginPress}
+              onPress={onRegisterPress}
             />
+
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 10,
+                width: '80%',
+                marginVertical: 5,
+                opacity: 0.5,
+              }}>
+              By registering, you confirm that you accept out terms of use and
+              privacy policy
+            </Text>
+
             <CustomButton
-              marginTop={10}
-              text="Forgot password?"
-              textColor="gray"
-              fontSize={11}
-              width="80%"
-              onPress={onForgotPassPress}
-            />
-            <CustomButton
-              text="Don't have an account? Create one"
+              text="have an account? Log in"
               marginTop={0}
               textColor="gray"
               fontSize={11}
               width="80%"
-              onPress={onForgotPassPress}
+              onPress={onGoToLogin}
             />
           </VStack>
         </KeyboardAvoidingView>
@@ -106,6 +138,7 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
+    backgroundColor: 'white',
     width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height,
   },
@@ -136,8 +169,8 @@ const styles = StyleSheet.create({
 
   titleText: {
     color: 'black',
+    fontWeight: 'bold',
     fontSize: 25,
-    fontFamily: 'MergeOne-Regular',
   },
 });
 

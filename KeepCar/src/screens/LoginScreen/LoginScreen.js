@@ -7,18 +7,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import CustomButton from '../../components/CustomButton/CustomButton';
+import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
+import {useNavigation} from '@react-navigation/native';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigation();
+
   const onLoginPress = () => {
-    console.warn('pressed');
+    console.warn('LoggedIn');
+    navigation.navigate('Home');
   };
 
   const onForgotPassPress = () => {
     console.warn('forgot pressed');
+  };
+
+  const onSingUpPressed = () => {
+    navigation.navigate('SignUp');
   };
 
   return (
@@ -46,6 +55,7 @@ export default function LoginScreen() {
                 value={username}
                 setValue={setUsername}
                 iconName="email"
+                iconCategory="MaterialCommunityIcons"
                 variant="filled"
                 placeholder="Username/Email"
                 secureTextEntry={false}
@@ -55,6 +65,7 @@ export default function LoginScreen() {
                 value={password}
                 setValue={setPassword}
                 iconName="form-textbox-password"
+                iconCategory="MaterialCommunityIcons"
                 variant="filled"
                 placeholder="Username/Email"
                 secureTextEntry
@@ -82,7 +93,7 @@ export default function LoginScreen() {
               textColor="gray"
               fontSize={11}
               width="80%"
-              onPress={onForgotPassPress}
+              onPress={onSingUpPressed}
             />
           </VStack>
         </KeyboardAvoidingView>
@@ -115,6 +126,7 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
+    backgroundColor: 'white',
     width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height,
   },
@@ -149,13 +161,3 @@ const styles = StyleSheet.create({
     fontFamily: 'MergeOne-Regular',
   },
 });
-
-{
-  /* <Image
-        flex={1}
-        alt="Logo"
-        resizeMode="cover"
-        size="sm"
-        w="full"
-        source={require('../assets/images/logInPageImage/background.png')}></Image> */
-}
